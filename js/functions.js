@@ -3,7 +3,7 @@ const isStringValid = (string, maxLength) => string.length <= maxLength;
 
 isStringValid('vftgfrhdjk');
 
-
+/*
 //вторая функция
 function isPalindrom (rawString) {
   const cleanedStr = rawString.replaceAll(' ', '').toLowerCase();
@@ -13,7 +13,21 @@ function isPalindrom (rawString) {
 }
 
 isPalindrom();
+*/
 
+//вторая функция (учитывая рекомендации с созвона)
+function isPalindrom (rawString) {
+  let left = 0;
+  let right = rawString.length - 1;
+  while (left <= right) {
+    if (rawString[left] !== rawString[right]) return false;
+    left++;
+    right--;
+  }
+  return true;
+}
+
+isPalindrom('dfgfd');
 
 //3-я функция
 function extractNumber (str) {
