@@ -27,7 +27,7 @@ function isPalindrom (rawString) {
   return true;
 }
 
-console.log(isPalindrom(dfgfd));
+isPalindrom('dfgfd');
 
 //3-я функция
 function extractNumber (str) {
