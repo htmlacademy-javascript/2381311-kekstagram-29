@@ -34,21 +34,20 @@ function getRandomInt (min, max) {
 
 //2. создать функцию, которая будет генерировать уникальный идентификатор
 function getUniqueId (min, max) {
+
   const generatedIds = [];
+  let currentId = min;
 
-  return function (min, max) {
-    let currentId = getRandomInt (min, max);
-
-    if (generatedIds >= max) {
+  return function() {
+    if (currentId > max) {
       return null;
     }
 
     while (generatedIds.includes(currentId)) {
-      currentId = getRandomInt (min, max);
+      currentId++;
     }
 
     generatedIds.push(currentId);
-
     return currentId;
   };
 }
