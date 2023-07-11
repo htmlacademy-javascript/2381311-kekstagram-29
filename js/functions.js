@@ -16,6 +16,7 @@ isPalindrom();
 */
 
 //вторая функция (учитывая рекомендации с созвона)
+/*
 function isPalindrom (rawString) {
   let left = 0;
   let right = rawString.length - 1;
@@ -27,7 +28,9 @@ function isPalindrom (rawString) {
   return true;
 }
 
+
 isPalindrom('dfgfd');
+*/
 
 //3-я функция
 function extractNumber (str) {
