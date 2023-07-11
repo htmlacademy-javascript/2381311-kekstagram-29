@@ -41,3 +41,31 @@ function extractNumber (str) {
 }
 
 extractNumber();
+
+
+//5. Функции возвращаются
+
+const minutesToHours = (time) => {
+  const [hour, minute] = time.split(':').map((el) => parseInt(el, 10));
+  return hour * 60 + minute;
+
+};
+
+minutesToHours();
+
+const isMeetingDuringTime = (startTime, endTime, meetingTime, duration) => {
+
+  const startWork = minutesToHours(startTime);
+  const endWork = minutesToHours(endTime);
+  const meeting = minutesToHours(meetingTime);
+
+  const endMeeting = meeting + duration;
+
+  return startWork >= meeting && endMeeting <= endWork;
+};
+
+isMeetingDuringTime('08:00', '17:30', '14:00', 90);
+isMeetingDuringTime('8:0', '10:0', '8:0', 120);
+isMeetingDuringTime('08:00', '14:30', '14:00', 90);
+isMeetingDuringTime('14:00', '17:30', '08:0', 90);
+isMeetingDuringTime('8:00', '17:30', '08:00', 900);
