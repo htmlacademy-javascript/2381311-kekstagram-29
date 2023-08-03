@@ -3,7 +3,7 @@ import {
   getRandomInt,
   getUniqueId,
   getRandomArrayElement
-}
+} from './util.js';
 
 const DESCRIPTIONS = [
   'ля-ля',
@@ -48,7 +48,7 @@ function createComment () {
     message: getRandomArrayElement(MESSAGES, getRandomInt(1, 2)),
     name: getRandomArrayElement (NAMES),
   };
-};
+}
 
 // СГЕНЕРИРОВАТЬ объект createPhoto:
 // 1. id, число — идентификатор опубликованной фотографии. Это число от 1 до 25. Идентификаторы не должны повторяться.
@@ -59,10 +59,10 @@ function createComment () {
 function createPhoto () {
   return {
     id: getPhotoId,
-    url: `/photos/${getPhotoId}.jpg`,
+    url: `/photos/${getPhotoId()}.jpg`,
     description: getRandomArrayElement(DESCRIPTIONS),
     likes: getRandomInt (15, 200),
-    comments: Array.from({length: getRandomInt(0, 30)}, createComment),
+    comments: Array.from({ length: getRandomInt(0, 30) }, createComment),
   };
 }
 

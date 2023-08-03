@@ -7,9 +7,6 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <title>Кекстаграм</title>
-
-  <scpirt src="js/functions.js"></scpirt>
-  <scpirt type="module" src="js/main.js"></scpirt>
 </head>
 
 <body>
@@ -230,5 +227,18 @@
     </section>
   </template>
 
+  <!-- Шаблон комментариев -->
+  <template id="comment">
+    <li class="social__comment">
+      <img
+        class="social__picture"
+        src="{{аватар}}"
+        alt="{{имя комментатора}}"
+        width="35" height="35">
+      <p class="social__text">{{текст комментария}}</p>
+    </li>
+  </template>
+  <scpirt type="module" src="js/main.js"></scpirt>
 </body>
+
 </html>

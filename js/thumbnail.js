@@ -1,7 +1,5 @@
 import './data.js';
 
-import { createPhoto } from './data.js';
-
 // Функция для создания DOM-элемента на основе шаблона
 function createPictureElement(photo) {
   const pictureTemplate = document.querySelector('#picture').content;
@@ -33,10 +31,4 @@ function renderPictures(photos) {
   picturesContainer.appendChild(fragment);
 }
 
-// Создаем массив с данными фотографий
-const photoss = Array.from({ length: 25 }, createPhoto);
-
-// Отрисовываем миниатюры фотографий
-renderPictures(photoss);
-
-export {renderPictures};
+export { renderPictures };

@@ -1,5 +1,10 @@
 import { createPhoto } from './data.js';
-createPhoto();
+import { renderPictures } from './thumbnail.js';
 
-import { renderPictures } from './thumbnails.js';
-renderPictures();
+import {} from './fullSizePhoto.js';
+
+// Создаем массив с данными фотографий
+const photoss = Array.from({ length: 25 }, createPhoto);
+
+// Отрисовываем миниатюры фотографий
+renderPictures(photoss);
