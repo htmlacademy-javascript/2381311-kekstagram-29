@@ -1,21 +1,4 @@
-//модуль, который создаёт данные
-import { getRandomInt, getUniqueId, getRandomArrayElement } from './util.js';
-
-const DESCRIPTIONS = [
-  'ля-ля',
-  'meow',
-  'туц-туц',
-  'гав',
-  'жжж'
-];
-
-const MESSAGES = [
-  'В целом всё неплохо. Но не всё.',
-  'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
-  'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
-  'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
-  'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
-];
+import { getRandomInteger, getRandomArrayElement, getSequenceNumber } from './util.js';
 
 const NAMES = [
   'Иван',
@@ -28,33 +11,70 @@ const NAMES = [
   'Вашингтон',
 ];
 
-const getPhotoId = getUniqueId(1, 25);
-const getCommentId = getUniqueId(1, Infinity);
+const MESSAGES = [
+  'Всё отлично!',
+  'В целом всё неплохо. Но не всё.',
+  'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
+  'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
+  'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
+  'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
+];
 
-// СГЕНЕРИРОВАТЬ объект createComment:
-// 1. id — любое число. Идентификаторы не должны повторяться.
-// 2. avatar — это строка, значение которой формируется по правилу img/avatar-{{случайное число от 1 до 6}}.svg. Аватарки подготовлены в директории img.
-// 3. message — вам необходимо взять одно или два случайных предложения из массива messages
-// 4. name (случайное из массива)
+const DESCRIPTIONS = [
+  'beach area',
+  'signpost',
+  'azure coast',
+  'photo on the beach',
+  'soup',
+  'black car',
+];
+
+const PhotoCount = {
+  MIN: 1,
+  MAX: 25,
+};
+const Messages = {
+  MIN: 1,
+  MAX: 2,
+};
+const Comments = {
+  MIN: 0,
+  MAX: 30,
+};
+const Likes = {
+  MIN: 15,
+  MAX: 200,
+};
+
+const getMessages = (messagesCount) => {
+  let message = getRandomArrayElement(MESSAGES); //let message = MESSAGES[getRandomInteger(0, (MESSAGES.length - 1))];
+  if (messagesCount === 1) {
+    return message;
+  }
+  message += getRandomArrayElement(MESSAGES);
+  return message;
+};
+
 const createComment = () => ({
-  id: getCommentId,
-  avatar: `/img/avatar-${getRandomInt(1, 6)}.svg`,
-  message: getRandomArrayElement(MESSAGES, getRandomInt(1, 2)),
-  name: getRandomArrayElement(NAMES),
+  id: getRandomInteger(0, 500),
+  avatar: `img/avatar-${ getRandomInteger(1, 6)}.svg`,
+  message: getMessages(getRandomInteger(Messages.MIN,Messages.MAX)),
+  name: getRandomArrayElement(NAMES), //NAMES[getRandomInteger(0, (NAMES.length - 1))],
 });
 
-// СГЕНЕРИРОВАТЬ объект createPhoto:
-// 1. id, число — идентификатор опубликованной фотографии. Это число от 1 до 25. Идентификаторы не должны повторяться.
-// 2. url, строка — адрес картинки вида photos/{{i}}.jpg, где {{i}} — это число от 1 до 25. Адреса картинок не должны повторяться.
-// 3. description, строка — описание фотографии. Описание придумайте самостоятельно.
-// 4. likes, число — количество лайков, поставленных фотографии. Случайное число от 15 до 200.
-// 5. comments, массив объектов — список комментариев, оставленных другими пользователями к этой фотографии. Количество комментариев к каждой фотографии — случайное число от 0 до 30. Все комментарии генерируются случайным образом.
-const createPhoto = () => ({
-  id: getPhotoId,
-  url: `/photos/${getPhotoId()}.jpg`,
-  description: getRandomArrayElement(DESCRIPTIONS),
-  likes: getRandomInt(15, 200),
-  comments: Array.from({ length: getRandomInt(0, 30) }, createComment),
-});
+const createIDNumber = getSequenceNumber(PhotoCount.MIN,PhotoCount.MAX);
 
-export { createPhoto };
+const createPhoto = () => {
+  const getComments = Array.from({ length: getRandomInteger(Comments.MIN, Comments.MAX) }, createComment);
+  const idNumber = createIDNumber();
+
+  return {
+    id: idNumber, //от 1-25
+    url: `/photos/${idNumber}.jpg`,
+    description: getRandomArrayElement(DESCRIPTIONS),
+    likes: getRandomInteger(Likes.MIN,Likes.MAX),
+    comments: getComments,
+  };
+};
+
+export const getPhotos = () => Array.from({ length: PhotoCount.MAX }, createPhoto);

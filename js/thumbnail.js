@@ -1,9 +1,6 @@
-//модуль для отрисовки миниатюр
-
 const thumbnailTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const thumbnailsList = document.querySelector('.pictures');
 
-// Функция для создания DOM-элемента на основе шаблона
 const createThumbnail = ({ url, description, likes, comments }) => {
   const thumbnail = thumbnailTemplate.cloneNode(true);
 
@@ -15,7 +12,6 @@ const createThumbnail = ({ url, description, likes, comments }) => {
   return thumbnail;
 };
 
-// Функция для отрисовки миниатюр фотографий
 const renderThumbnails = (photos) => {
   const fragment = document.createDocumentFragment();
 
@@ -23,6 +19,6 @@ const renderThumbnails = (photos) => {
   thumbnailsList.appendChild(fragment);
 };
 
-export const template = document.querySelector('.social__comment');
+// export const template = document.querySelector('.social__comment');
 
 export { renderThumbnails };

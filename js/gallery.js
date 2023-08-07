@@ -1,12 +1,16 @@
-//модуль для отрисовки галереи
-
-import { createPhoto } from './data.js';
+import { getPhotos } from './data.js';
 import { renderThumbnails } from './thumbnail.js';
+import { showFullsizePicture } from './fullSizePhoto.js';
 
-// Создаем массив с данными фотографий
-const getPhotos = Array.from({ length: 25 }, createPhoto);
+export const template = document.querySelector('.social__comment');
 
-// Отрисовываем миниатюры фотографий
-renderThumbnails(getPhotos());
+export const photos = getPhotos();
+renderThumbnails(photos);
 
-export { getPhotos };
+const pictures = Array.from(document.querySelectorAll('.picture'));
+
+pictures.forEach((picture, index) => {
+  picture.addEventListener('click', () => {
+    showFullsizePicture(picture, index);
+  });
+});
