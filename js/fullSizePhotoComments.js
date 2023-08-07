@@ -1,6 +1,5 @@
 import { getPhotos } from './gallery.js';
-import { openPictureEvt, closePictureEvt } from './openAndClosePicture.js';
-import { template, renderThumbnails } from './thumbnail.js';
+import { template } from './thumbnail.js';
 
 const bigPictureModalElement = document.querySelector('.big-picture');
 const pictureModalOpenElements = Array.from(document.querySelectorAll('.picture'));
@@ -16,14 +15,12 @@ const clearCommentsList = () => {
   }
 };
 
-const renderCommentsList = (photoIndex, commentsCount) => {
+const renderCommentsList = (photoIndex, commentsCount, targetCommentsCount) => {
   const comments = getPhotos[photoIndex].comments;
   const fragment = document.createDocumentFragment();
 
-  clearCommentsList();
-
   comments.forEach((comment, index) => {
-    for (let i = 0; i < commentsCount; i++) {
+    for (let i = targetCommentsCount; i < commentsCount; i++) {
       if (index === i) {
         const commentTemplate = template.cloneNode(true);
         commentTemplate.querySelector('img').src = comment.avatar;
@@ -33,20 +30,37 @@ const renderCommentsList = (photoIndex, commentsCount) => {
       }
     }
   });
-  bigPictureModalElement.querySelector('.social__comment-count').firstChild.textContent = `${fragment.children.length} из `;
   commentsList.appendChild(fragment);
+  bigPictureModalElement.querySelector('.social__comment-count').firstChild.textContent = `${commentsList.children.length} из `;
 };
 
 const commentsLoader = document.querySelector('.comments-loader');
 
-const onCommentsLoaderClick = (firstRender) => {
-  firstRender();
+const onCommentsLoaderClick = (renderComments) => {
+  renderComments();
+};
+
+
+const renderFullSizePicture = (picture, index) => {
+  let commentsCount = 5;
+  bigPictureModalElement.querySelector('.big-picture__img').querySelector('.img').src = picture.querySelector('.picture__img').src;
+  bigPictureModalElement.querySelector('.big-picture__social').querySelector('.span').textContent = picture.querySelector('.picture__likes').textContent;
+  bigPictureModalElement.querySelector('.social__comment-count').querySelector('.span').textContent = picture.querySelector('.picture__img').alt;
+  bigPictureModalElement.querySelector('.social__caption').textContent = picture.querySelector('.picture__likes').textContent;
+
+  clearCommentsList();
+  renderCommentsList(index, commentsCount, 0);
+
+  return () => {
+    const targetCommentsCount = commentsCount;
+    commentsCount += 5;
+    renderCommentsList(index, commentsCount, targetCommentsCount);
+  };
 };
 
 export {
-  bigPictureModalElement,
   pictureModalOpenElements,
-  renderCommentsList,
   commentsLoader,
-  onCommentsLoaderClick
+  onCommentsLoaderClick,
+  renderFullSizePicture
 };

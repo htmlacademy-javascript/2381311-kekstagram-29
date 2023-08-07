@@ -1,6 +1,5 @@
 import { isEscapeKey } from './util.js';
-import { pictureModalOpenElements, commentsLoader, onCommentsLoaderClick } from './fullSizePhotoComments.js';
-import { renderFullSizePicture } from './gallery.js';
+import { pictureModalOpenElements, commentsLoader, onCommentsLoaderClick, renderFullSizePicture } from './fullSizePhotoComments.js';
 
 const pictureCloseButton = document.querySelector('#picture-cancel');
 
@@ -15,7 +14,7 @@ const OnCloseButtonClick = () => {
   closePictureEvt();
 };
 
-const openPictureEvt = (firstRender) => {
+const openPictureEvt = (renderComments) => {
   pictureCloseButton.classList.remove('hidden');
 
   //bigPictureModalElement.querySelector('.social__comment-count').classList.add('hidden');
@@ -26,8 +25,8 @@ const openPictureEvt = (firstRender) => {
   document.addEventListener('keydown', onDocumentKeydown);
   pictureCloseButton.addEventListener('click', OnCloseButtonClick);
 
-  commentsLoader.addEventListener('click', () => onCommentsLoaderClick(firstRender));
-  commentsLoader.removeEventListener('click', () => onCommentsLoaderClick(firstRender));
+  commentsLoader.addEventListener('click', () => onCommentsLoaderClick(renderComments));
+  commentsLoader.removeEventListener('click', () => onCommentsLoaderClick(renderComments));
 };
 
 const closePictureEvt = () => {
@@ -37,14 +36,17 @@ const closePictureEvt = () => {
 
   document.removeEventListener('keydown', onDocumentKeydown);
   pictureCloseButton.removeEventListener('click', OnCloseButtonClick);
+
+  // commentsLoader.removeEventListener('click', () => onCommentsLoaderClick(renderComments));
+  // document.querySelector('.comments-loader').classList.remove('hidden');
 };
 
 const openFirstRender = () => {
   pictureModalOpenElements.forEach((pictureModalOpenElement, index) => {
     pictureModalOpenElement.addEventListener('click', () => {
-      const firstRender = renderFullSizePicture(pictureModalOpenElement, index);
+      const renderComments = renderFullSizePicture(pictureModalOpenElement, index);
 
-      openPictureEvt(firstRender);
+      openPictureEvt(renderComments);
     });
   });
 };
