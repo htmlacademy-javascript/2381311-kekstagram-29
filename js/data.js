@@ -1,16 +1,12 @@
 //модуль, который создаёт данные
-import {
-  getRandomInt,
-  getUniqueId,
-  getRandomArrayElement
-}
+import { getRandomInt, getUniqueId, getRandomArrayElement } from './util.js';
 
 const DESCRIPTIONS = [
   'ля-ля',
   'meow',
   'туц-туц',
   'гав',
-  'жжж',
+  'жжж'
 ];
 
 const MESSAGES = [
@@ -35,20 +31,17 @@ const NAMES = [
 const getPhotoId = getUniqueId(1, 25);
 const getCommentId = getUniqueId(1, Infinity);
 
-
 // СГЕНЕРИРОВАТЬ объект createComment:
 // 1. id — любое число. Идентификаторы не должны повторяться.
 // 2. avatar — это строка, значение которой формируется по правилу img/avatar-{{случайное число от 1 до 6}}.svg. Аватарки подготовлены в директории img.
 // 3. message — вам необходимо взять одно или два случайных предложения из массива messages
 // 4. name (случайное из массива)
-function createComment () {
-  return {
-    id: getCommentId,
-    avatar: `/img/avatar-${getRandomInt(1, 6)}.svg`,
-    message: getRandomArrayElement(MESSAGES, getRandomInt(1, 2)),
-    name: getRandomArrayElement (NAMES),
-  };
-};
+const createComment = () => ({
+  id: getCommentId,
+  avatar: `/img/avatar-${getRandomInt(1, 6)}.svg`,
+  message: getRandomArrayElement(MESSAGES, getRandomInt(1, 2)),
+  name: getRandomArrayElement(NAMES),
+});
 
 // СГЕНЕРИРОВАТЬ объект createPhoto:
 // 1. id, число — идентификатор опубликованной фотографии. Это число от 1 до 25. Идентификаторы не должны повторяться.
@@ -56,14 +49,12 @@ function createComment () {
 // 3. description, строка — описание фотографии. Описание придумайте самостоятельно.
 // 4. likes, число — количество лайков, поставленных фотографии. Случайное число от 15 до 200.
 // 5. comments, массив объектов — список комментариев, оставленных другими пользователями к этой фотографии. Количество комментариев к каждой фотографии — случайное число от 0 до 30. Все комментарии генерируются случайным образом.
-function createPhoto () {
-  return {
-    id: getPhotoId,
-    url: `/photos/${getPhotoId}.jpg`,
-    description: getRandomArrayElement(DESCRIPTIONS),
-    likes: getRandomInt (15, 200),
-    comments: Array.from({length: getRandomInt(0, 30)}, createComment),
-  };
-}
+const createPhoto = () => ({
+  id: getPhotoId,
+  url: `/photos/${getPhotoId()}.jpg`,
+  description: getRandomArrayElement(DESCRIPTIONS),
+  likes: getRandomInt(15, 200),
+  comments: Array.from({ length: getRandomInt(0, 30) }, createComment),
+});
 
 export { createPhoto };

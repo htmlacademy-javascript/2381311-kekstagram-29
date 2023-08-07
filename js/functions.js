@@ -1,7 +1,7 @@
 //первая функция
-const isStringValid = (string, maxLength) => string.length <= maxLength;
+//const isStringValid = (string, maxLength) => string.length <= maxLength;
 
-isStringValid('vftgfrhdjk');
+//isStringValid('vftgfrhdjk');
 
 /*
 //вторая функция
@@ -33,7 +33,7 @@ isPalindrom('dfgfd');
 */
 
 //3-я функция
-function extractNumber (str) {
+/*function extractNumber (str) {
   const extracted = str.toString().replace(/\D/g, '');
 
   if (extracted === '') {
@@ -72,3 +72,4 @@ isMeetingDuringTime('8:0', '10:0', '8:0', 120);
 isMeetingDuringTime('08:00', '14:30', '14:00', 90);
 isMeetingDuringTime('14:00', '17:30', '08:0', 90);
 isMeetingDuringTime('8:00', '17:30', '08:00', 900);
+*/
