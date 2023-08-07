@@ -23,4 +23,6 @@ const renderThumbnails = (photos) => {
   thumbnailsList.appendChild(fragment);
 };
 
+export const template = document.querySelector('.social__comment');
+
 export { renderThumbnails };
