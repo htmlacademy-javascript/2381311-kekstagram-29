@@ -1,4 +1,4 @@
-import { getPhotos, renderFullSizePicture } from './gallery.js';
+import { getPhotos } from './gallery.js';
 import { openPictureEvt, closePictureEvt } from './openAndClosePicture.js';
 import { template, renderThumbnails } from './thumbnail.js';
 
@@ -37,4 +37,16 @@ const renderCommentsList = (photoIndex, commentsCount) => {
   commentsList.appendChild(fragment);
 };
 
-export { bigPictureModalElement, pictureModalOpenElements, renderCommentsList };
+const commentsLoader = document.querySelector('.comments-loader');
+
+const onCommentsLoaderClick = (firstRender) => {
+  firstRender();
+};
+
+export {
+  bigPictureModalElement,
+  pictureModalOpenElements,
+  renderCommentsList,
+  commentsLoader,
+  onCommentsLoaderClick
+};
