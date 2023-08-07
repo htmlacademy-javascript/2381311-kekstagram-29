@@ -1,2 +1,2 @@
 import './gallery.js';
-import './fullSizePhotoComments.js';
+import './fullSizePhoto.js';

@@ -1,5 +1,5 @@
 import { isEscapeKey } from './util.js';
-import { pictureModalOpenElements, commentsLoader, onCommentsLoaderClick, renderFullSizePicture } from './fullSizePhotoComments.js';
+import { pictureModalOpenElements, commentsLoader, onCommentsLoaderClick, renderFullSizePicture } from './fullSizePhoto.js';
 
 const pictureCloseButton = document.querySelector('#picture-cancel');
 
