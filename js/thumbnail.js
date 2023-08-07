@@ -1,42 +1,24 @@
-import './data.js';
+const thumbnailTemplate = document.querySelector('#picture').content.querySelector('.picture');
+const thumbnailsList = document.querySelector('.pictures');
 
-import { createPhoto } from './data.js';
+const createThumbnail = ({ url, description, likes, comments }) => {
+  const thumbnail = thumbnailTemplate.cloneNode(true);
 
-// Функция для создания DOM-элемента на основе шаблона
-function createPictureElement(photo) {
-  const pictureTemplate = document.querySelector('#picture').content;
-  const pictureElement = pictureTemplate.cloneNode(true);
+  thumbnail.querySelector('.picture__img').src = url;
+  thumbnail.querySelector('.picture__img').alt = description;
+  thumbnail.querySelector('.picture__likes').textContent = likes;
+  thumbnail.querySelector('.picture__comments').textContent = comments.length;
 
-  const imgElement = pictureElement.querySelector('.picture__img');
-  imgElement.src = photo.url;
-  imgElement.alt = photo.description;
+  return thumbnail;
+};
 
-  const commentsElement = pictureElement.querySelector('.picture__comments');
-  commentsElement.textContent = photo.comments.length;
-
-  const likesElement = pictureElement.querySelector('.picture__likes');
-  likesElement.textContent = photo.likes;
-
-  return pictureElement;
-}
-
-// Функция для отрисовки миниатюр фотографий
-function renderPictures(photos) {
+const renderThumbnails = (photos) => {
   const fragment = document.createDocumentFragment();
-  const picturesContainer = document.querySelector('.pictures');
 
-  photos.forEach((photo) => {
-    const pictureElement = createPictureElement(photo);
-    fragment.appendChild(pictureElement);
-  });
+  photos.forEach((photo) => fragment.appendChild(createThumbnail(photo)));
+  thumbnailsList.appendChild(fragment);
+};
 
-  picturesContainer.appendChild(fragment);
-}
+// export const template = document.querySelector('.social__comment');
 
-// Создаем массив с данными фотографий
-const photoss = Array.from({ length: 25 }, createPhoto);
-
-// Отрисовываем миниатюры фотографий
-renderPictures(photoss);
-
-export {renderPictures};
+export { renderThumbnails };
